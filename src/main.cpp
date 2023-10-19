@@ -263,11 +263,11 @@ void setup() {
   config = loadConfiguration(DEFAULT_SSID);
 
   // Initialize IMU
-  Serial.println("[IMU] Initializing IMU");
-  xrp::imuInit(IMU_I2C_ADDR, &Wire1);
+  //Serial.println("[IMU] Initializing IMU");
+  //xrp::imuInit(IMU_I2C_ADDR, &Wire1);
 
-  Serial.println("[IMU] Beginning IMU calibration");
-  xrp::imuCalibrate(5000);
+  //Serial.println("[IMU] Beginning IMU calibration");
+  //xrp::imuCalibrate(5000);
 
   // Busy-loop if there's no WiFi hardware
   if (WiFi.status() == WL_NO_MODULE) {
@@ -329,15 +329,15 @@ void loop() {
     wpilibudp::processPacket(udpPacketBuf, n);
   }
 
-  xrp::imuPeriodic();
-  xrp::rangefinderPollForData();
+  //xrp::imuPeriodic();
+  //xrp::rangefinderPollForData();
 
   // Disable the robot when the UDP watchdog timesout
   // Also reset the max sequence number so we can handle reconnects
   if (!wpilibudp::dsWatchdogActive()) {
     wpilibudp::resetState();
     xrp::robotSetEnabled(false);
-    xrp::imuSetEnabled(false);
+    //xrp::imuSetEnabled(false);
   }
 
   if (xrp::robotPeriodic()) {
