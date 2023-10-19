@@ -153,8 +153,16 @@ void _setMotorPwmValueInternal(int en, int ph, double value) {
   PinStatus phValue = (value < 0.0) ? LOW : HIGH;
   int enValue = (abs(value) * 255);
 
-  digitalWrite(ph, phValue);
-  analogWrite(en, enValue);
+  if (phValue == LOW) {
+    analogWrite(ph, enValue);
+    analogWrite(en, 0);
+  } else {
+    if (en == XRP_LEFT_MOTOR_EN || en == XRP_RIGHT_MOTOR_EN) {
+      analogWrite(en, enValue);
+      analogWrite(ph, 0);
+    }
+    
+  }
 }
 
 void _setServoPwmValueInternal(int servoIdx, double value) {
